@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+html{
+	height: 100%;
+}
+
+body{
+	background-color: #D5DDE5;
+	height: 100%;
+}
+
+.contents{
+	height: 90%;
+}

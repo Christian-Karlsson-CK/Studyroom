@@ -1,0 +1,212 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+html{
+	height: 100%;
+}
+
+body{
+	background-color: #D5DDE5;
+	height: 100%;
+}
+
+.contents{
+	height: calc(100% - 80px);
+	background-color: #D5DDE5;
+	display: flex;
+	align-items: stretch;
+	font-family: 'Cormorant Garamond', serif;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.users_list{
+	width: 25%;
+	background: #D5DDE5;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding-left: 20px;
+	padding-top: 20px;
+	display: inline;
+	overflow-y:scroll;
+	
+}
+
+.courses_sections h4{
+	border-bottom: 3px solid green;
+	padding-top: 15px;
+	margin-bottom: 5px;
+	color: green;
+}
+
+
+
+
+.user{
+	color: black;
+	border-bottom: 1px solid silver;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+
+.user:hover{
+	background: #4E5066;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.user_row{
+	
+	display: flex;
+	align-items: center;
+	
+}
+
+
+.user_row img{
+	max-width: 32px;
+	max-height:32px;
+} 
+
+
+.user_row .date{
+	margin-left: auto;
+	padding-right: 10px;
+}
+
+.message{
+	display: block;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden; 
+}
+
+.new_messages{
+	color: red;
+}
+
+.message_icon{
+	max-height: 20px;
+	vertical-align: bottom 
+}
+
+.message_area{
+	width: 50%;
+	background: #D5DDE5;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 20px 0px 10px 20px;
+	border-left: 3px solid black;
+	
+}
+
+.user_info{
+	display: flex;
+	align-items: center;
+	border: 2px solid silver;
+
+}
+
+.user_info .date{
+	margin-left: auto;
+	padding-right: 10px;
+}
+
+.message_box_scroll{
+	flex-grow: 1;
+	overflow-y:scroll;
+	border-left: 2px solid silver;
+	border-right: 2px solid silver;
+	display:flex; 
+	flex-direction:column-reverse;
+}
+
+.message_box img{
+	max-width: 32px;
+	max-height:32px;
+	padding: 8px 8px;
+}
+.message_box p{
+	padding: 8px 8px;
+}
+.message_box .outgoing_message{
+	display: flex;
+	align-items: center;
+	background: #333;
+	color: #FFF;
+	border-radius: 3px;
+	
+}
+.message_box .incomming_message{
+	display: flex;
+	align-items: center;
+	background: white;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	
+}
+
+.message_area .typing_area{
+	padding: 5px 0px;
+	border: 2px solid silver;
+	margin-top: auto;
+}
+
+.message_area{
+	display: flex;
+	flex-direction: column;
+		
+}
+.typing_form{
+	display: flex;
+	flex-direction: column;
+}
+
+.typing_area .input{
+	height: 100px;
+	overflow-y:scroll;
+	resize: none;
+	font-family: 'Cormorant Garamond', serif;
+	font-weight: 600;
+	font-size: 20px;
+	
+}
+
+.typing_area .send{
+	margin-left: auto;
+	margin-top: 10px;
+	margin-right: 10px;
+	padding: 10px 20px;
+	font-family: 'Cormorant Garamond', serif;
+	font-weight: 600;
+	font-size: 20px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

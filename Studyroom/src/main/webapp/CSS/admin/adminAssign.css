@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+body{
+	background-color: #D5DDE5;
+}
+
+div.table_title{
+	display:block;
+	margin: auto;
+	max-width: 1100px;
+	padding: 5px 5px 5px 10px;
+	width:100%;
+}
+
+.table_title h1{
+	text-transform: uppercase;
+}
+
+.table_container{
+	font-family: 'Cormorant Garamond', serif;
+}
+
+.course_h1{
+	color: green;
+	margin: auto;
+	max-width: 1100px;
+	padding: 20px 5px 5px 5px;
+	width:100%;
+}
+
+.table{
+	background: white;
+	border-collapse: collapse;
+	
+	margin: auto;
+  	max-width: 1100px;
+  	padding:5px;
+  	width: 100%;
+  	border: 1px solid #343a45;
+  	
+}
+
+th{
+	color: white;
+	background: #180521;
+	border-bottom: 4px solid #343a45;
+	border-right: 1px solid #343a45;
+	font-size:23px;
+	font-weight: 500;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+	
+}
+
+tr{
+	border-top: 1px solid #343a45;
+	border-bottom: 1px solid #343a45;
+	font-size:22px;
+	font-weight: 600;
+	
+}
+
+tr:hover td{
+	background: #4E5066;
+	color: #FFFFFF;
+}
+
+tr:nth-child(odd){
+	background: #EBEBEB;
+}
+
+td{
+	
+	background: #FFFFFF;
+	padding: 5px;
+	text-align: left;
+	vertical-align: middle;
+	border-right: 1px solid #343a45;
+	
+	
+}
+
+td input{
+	font-family: 'Cormorant Garamond', serif;
+	font-size:22px;
+	font-weight: 600;
+	max-width: 150px;
+}
+
+
+
+
+
+

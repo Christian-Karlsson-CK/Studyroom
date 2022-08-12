@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+body{
+	background-color: #D5DDE5;
+	height: 100%;
+}
+
+.contents{
+	height: calc(100% - 80px);
+	display: flex;
+	align-items: stretch;
+}
+
+div.table_title{
+	display:block;
+	margin: left;
+	padding: 5px;
+	width: 100%;
+}
+
+.table_title h1{
+	text-transform: uppercase;
+}
+
+.table_container{	
+	height: 100%;
+	max-height: 723px;
+	border-bottom: 1px solid black;
+	font-family: 'Cormorant Garamond', serif;
+	padding: 5px 20px 5px 5px;
+	min-height: 723px;
+	max-width: 500px;
+	overflow-y:scroll;
+	overflow-x: hidden;
+}
+.table_container2{
+	height: 100%;
+	max-height: 723px;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	font-family: 'Cormorant Garamond', serif;
+	padding: 5px 20px 5px 5px;
+	min-height: 723px;
+	min-width: 750px;
+	overflow-y:scroll;
+	overflow-x: hidden;
+}
+
+.table{
+	height: 100%;
+	background: white;
+	border-collapse: collapse;
+  	max-width: 250px;
+  	padding:5px;
+  	margin: 5px;
+  	width: 100%;
+  	border: 1px solid #343a45;
+  	
+}
+
+
+th{
+	color: white;
+	background: #180521;
+	border-bottom: 4px solid #343a45;
+	border-right: 1px solid #343a45;
+	border-left: 1px solid #343a45;
+	font-size:23px;
+	min-width: 100px;
+	font-weight: 500;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+	
+}
+
+tr{
+	border-top: 1px solid #343a45;
+	border-bottom: 1px solid #343a45;
+	font-size:22px;
+	font-weight: 600;
+	
+}
+
+tr:hover td{
+	background: #4E5066;
+	color: #FFFFFF;
+}
+
+tr:nth-child(odd){
+	background: #EBEBEB;
+}
+
+td{
+	background: #FFFFFF;
+	padding: 5px;
+	text-align: left;
+	vertical-align: middle;
+	border-right: 1px solid #343a45;
+	font-family: 'Cormorant Garamond', serif;
+	font-size:22px;
+	font-weight: 600;
+
+	
+}
+
+.number_of_exercises h2{
+	display: inline-block;
+	padding-top: 10px;
+}
+
+input{
+	font-family: 'Cormorant Garamond', serif;
+	font-size:22px;
+	font-weight: 600;
+
+	
+}
+
+.exercise, .examination{
+	font-family: 'Cormorant Garamond', serif;
+	font-size:22px;
+	font-weight: 600;
+	min-width: 725px;
+	min-height:100px;
+}
+
+
+
+
+
+
+
+

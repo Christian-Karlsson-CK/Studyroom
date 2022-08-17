@@ -9,6 +9,9 @@
     
 <!DOCTYPE html>
 <html>
+
+<!------------------------------This page lets Admin assign students to various courses. ---------------------------------------->
+	
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

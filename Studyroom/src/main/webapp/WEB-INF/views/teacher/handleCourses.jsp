@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page lets teachers add in exercises to courses.. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

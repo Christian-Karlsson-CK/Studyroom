@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------On this page students can answer the exercises for the enrolled courses.. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

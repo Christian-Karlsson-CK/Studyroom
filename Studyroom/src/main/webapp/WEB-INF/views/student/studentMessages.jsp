@@ -11,6 +11,7 @@
     
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page serves as a chat to the teachers. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +60,7 @@
 							</c:if>
 							
 							<c:if test="${not empty friendList.lastSentMessage}">
-							<c:if test ="${friendList.newMessagesCount ne 0}"><span class="new_messages"> ${friendList.newMessagesCount}<img class="message_icon" alt="icon" src="RESOURCES/IMAGES/new_message.png"> </span></c:if>${friendList.lastSentMessage}
+							<c:if test ="${friendList.newMessagesCount ne 0}"><span class="new_messages"> ${friendList.newMessagesCount}  <img class="message_icon" alt="icon" src="RESOURCES/IMAGES/new_message.png"> </span></c:if>  ${friendList.lastSentMessage}
 							
 							</c:if></i>
 					</div>

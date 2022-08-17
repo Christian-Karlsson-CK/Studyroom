@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<!------------------------------This is the header for all Admin pages. ---------------------------------------->
 	<head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="CSS/admin/header.css"/>

@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page lets teachers examine students exercises and examination. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,7 +106,7 @@
 				<c:if test = "${not empty selectedCourse}">
 				<form action="<%= request.getContextPath() %>/TeacherController" method="get" >
 				<input type="hidden" name="action" value="save_examinations">
-				<input type="hidden" name="coursecoded" value="${selectedCourse.coursecode}">
+				<input type="hidden" name="coursecode" value="${selectedCourse.coursecode}">
 				<input type="hidden" name="course" value="${selectedCourse.course}">
 				<input type="hidden" name="student" value="${student}"/>
 				<input type="hidden" name="student_name" value="${studentName}"/>
@@ -116,7 +117,7 @@
 					<h3>Student Answer</h3>
 					<textarea class="exercise" placeholder="Student have yet to answer..." readonly>${selectedCourse.studentAnswer1}</textarea>
 					<h3>Teacher feedback</h3>
-					<textarea class="exercise" placeholder="Type your answer here..." >${selectedCourse.teacherReply1}</textarea>
+					<textarea class="exercise" name="teacher_reply1" placeholder="Type your answer here..." >${selectedCourse.teacherReply1}</textarea>
 					
 					
 					<h2>Exercises 2</h2>
@@ -124,7 +125,7 @@
 					<h3>Student Answer</h3>
 					<textarea class="exercise" placeholder="Student have yet to answer..." readonly>${selectedCourse.studentAnswer2}</textarea>
 					<h3>Teacher feedback</h3>
-					<textarea class="exercise" placeholder="Type your answer here..." >${selectedCourse.teacherReply2}</textarea>
+					<textarea class="exercise" name="teacher_reply2" placeholder="Type your answer here..." >${selectedCourse.teacherReply2}</textarea>
 					
 					
 					<h2>Exercises 3</h2>
@@ -132,7 +133,7 @@
 					<h3>Student Answer</h3>
 					<textarea class="exercise" placeholder="Student have yet to answer..." readonly>${selectedCourse.studentAnswer3}</textarea>
 					<h3>Teacher feedback</h3>
-					<textarea class="exercise" placeholder="Type your answer here..." >${selectedCourse.teacherReply3}</textarea>
+					<textarea class="exercise" name="teacher_reply3" placeholder="Type your answer here..." >${selectedCourse.teacherReply3}</textarea>
 					
 				</div>
 				
@@ -142,9 +143,9 @@
 					<h3>Student Answer</h3>
 					<textarea class="exercise" placeholder="Student have yet to answer..." readonly>${selectedCourse.examinationStudentAnswer}</textarea>
 					<h3>Teacher feedback</h3>
-					<textarea class="exercise" placeholder="Type your answer here..." >${selectedCourse.examinationTeacherReply}</textarea>
+					<textarea class="exercise" name="teacher_examination_reply" placeholder="Type your answer here..." >${selectedCourse.examinationTeacherReply}</textarea>
 				</div>
-				<input type="submit" class="send" value="Save Exercises">
+				<input type="submit" class="send" value="Save Replies">
 				</form>
 				</c:if>
 			</div>

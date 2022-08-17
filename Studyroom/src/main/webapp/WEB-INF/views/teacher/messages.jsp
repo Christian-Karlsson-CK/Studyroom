@@ -11,6 +11,7 @@
     
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page serves as a chat to the students. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

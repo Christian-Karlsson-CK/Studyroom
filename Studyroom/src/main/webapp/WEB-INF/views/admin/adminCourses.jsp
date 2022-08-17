@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page lets Admin add or remove courses. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,7 +79,7 @@
 								<input type="hidden" name="action" value="delete_course"/>	
 							</form>
 							
-						<tr><!--data-href="" -->
+						<tr>
 							<td><input type="text" value="${courseLists.courseCodeId}" name="course_code_id" id="edit" form="edit_form${status.index}"/></td>
 							<td><input type="text" value="${courseLists.name}" name="name" id="edit" form="edit_form${status.index}"></td>
 							<td><input type="text" value="${courseLists.teacherId}" name="teacher_id" id="edit" form="edit_form${status.index}"></td>
@@ -102,19 +103,6 @@
 					</tbody>	
 				</table>
 				
-				<!-- <script type="text/javascript">
-					document.addEventListener("DOMContentLoaded", () => {
-						const rows = document.querySelectorAll("tr[data-href]");
-						console.log(rows)
-						rows.forEach(row =>{
-							row.addEventListener("click", () =>{
-								window.location.href = row.dataset.href;
-							});
-						});
-					});
-					
-				</script>
-				 -->
 			</div>
 			
 		</div>

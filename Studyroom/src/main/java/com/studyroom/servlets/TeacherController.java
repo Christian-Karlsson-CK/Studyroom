@@ -23,9 +23,14 @@ import com.studyroom.dao.CourseDAO;
 import com.studyroom.dao.MessageDAO;
 import com.studyroom.dao.UserDAO;
 
-/**
- * Servlet implementation class TeacherController
- */
+/**  
+ * 
+ * 
+ * This servlet handles all teacher requests from all the teacher pages.
+ * It forwards data to either the CourseDAO, UserDAO or the MessageDAO.
+ * 
+ * 
+ * **/
 @WebServlet("/TeacherController")
 public class TeacherController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,39 +55,47 @@ public class TeacherController extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-    	//System.out.println("do get runs /teachercontroller");
     	String action = request.getParameter("action");
-    	//System.out.println(action);
+    	
+    	/** 
+		 *  The switch statement changes the view to the correct page if a link in the header has been clicked. It also handles all button presses from the student pages.
+		 * **/
+    	
     	switch(action) {
-    				
+    		
+    	    //If 'handle courses' has been pressed in header.
     		case "to_courses":
     			
+    			//Get teachers courses.
     			List<CourseBean> courseList = courseDAO.getTeacherCourses((String) session.getAttribute("username"));
     			request.setAttribute("courseList", courseList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/handleCourses.jsp");
     			break;
     			
+    		//if 'edit' button has been pressed on handlecourses.jsp
     		case "edit_course":
     			
     			String coursecode = request.getParameter("coursecode");	
     			
+    			//gets the course data to display on handlecourses.jsp
     			courseDAO.getCourse(coursecode);
     			CourseBean course = courseDAO.getCourse(coursecode);
     			request.setAttribute("selectedCourse", course);
     			
-    			
+    			//refresh page
     			courseList = courseDAO.getTeacherCourses((String) session.getAttribute("username"));
     			request.setAttribute("courseList", courseList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/handleCourses.jsp");
     			break;
     			
+    		//if 'save exercises' button has been pressed on handlecourses.jsp
     		case "save_exercises":
     			
     			coursecode = request.getParameter("coursecode");
-    			System.out.println(coursecode);
     			
+    			//Get coursedata abd save it to database.
     			course = new CourseBean();
     			course.setCourseCodeId(coursecode);
     			course.setName(request.getParameter("course"));
@@ -90,10 +103,9 @@ public class TeacherController extends HttpServlet {
     			course.setExercise2(request.getParameter("exercise2"));
     			course.setExercise3(request.getParameter("exercise3"));
     			course.setExamination(request.getParameter("examination"));
-    			
-    			
     			courseDAO.saveExercises(course);
     			
+    			//refresh page
     			courseDAO.getCourse(coursecode);
     			course = courseDAO.getCourse(coursecode);
     			request.setAttribute("selectedCourse", course);
@@ -108,47 +120,52 @@ public class TeacherController extends HttpServlet {
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/handleCourses.jsp");
     			break;
-    		
+    			
+    		// if 'examine students' has been pressed in the header.
     		case "to_examine_students":
     			
+    			//Get students that the teacher is teaching to.
     			List<UserBean> userList = userDAO.getTeacherStudents((String) session.getAttribute("username"));
     			request.setAttribute("studentList", userList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/examineStudents.jsp");
     			break;
     			
+    		//if 'examine' button has been pressed on examineStudents.jsp
     		case "select_student":
     			
+    			//Save student name and username to be used when page gets updated.
     			String studentUsername = request.getParameter("student");
     			String studentName = request.getParameter("student_name");
-    			
-    			
     			request.setAttribute("student", studentUsername);
     			request.setAttribute("studentName", studentName);
 
+    			//Get the courses that logged in teacher is teaching for this particular student.
     			List<AssignedStudentBean> courses = courseDAO.getStudentCourses(studentUsername, (String)session.getAttribute("username"));
     			request.setAttribute("courses", courses);
     			
+    			//refresh page
     			userList = userDAO.getTeacherStudents((String) session.getAttribute("username"));
     			request.setAttribute("studentList", userList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/examineStudents.jsp");
     			break;
     			
+    		//if 'check' button has been pressed on examineStudents.jsp
     		case "select_student_course":
     			
     			studentUsername = request.getParameter("student");
     			studentName = request.getParameter("student_name");
     			coursecode = request.getParameter("coursecode");
 
+    			//Get the choosen course data.
     			course = courseDAO.getCourse(coursecode);
     			request.setAttribute("course", course);
-    			System.out.println("selected course: " + coursecode);
     			
     			CourseContentsBean courseContents = courseDAO.getCourseContents(studentUsername, coursecode);
     			request.setAttribute("selectedCourse", courseContents);
-    			//System.out.println(courseContents.getStudentAnswer1());
     			
+    			//refresh page
     			request.setAttribute("student", studentUsername);
     			request.setAttribute("studentName", studentName);
 
@@ -159,31 +176,38 @@ public class TeacherController extends HttpServlet {
     			request.setAttribute("studentList", userList);
 
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/examineStudents.jsp");
-    			break;	
+    			break;
     		
+    		//if 'Save Replies' button has been pressed on examinestudents.jsp.
     		case "save_examinations":
+    			
     			
     			studentUsername = request.getParameter("student");
     			studentName = request.getParameter("student_name");
     			coursecode = request.getParameter("coursecode");
-    			System.out.println("course: " + coursecode);
-    			course = courseDAO.getCourse(coursecode);
-    			request.setAttribute("course", course);
-    			
-    			
-
-    			courseContents = courseDAO.getCourseContents(studentUsername, coursecode);
-    			request.setAttribute("selectedCourse", courseContents);
-    			//System.out.println(courseContents.getStudentAnswer1());
     			
     			request.setAttribute("student", studentUsername);
     			request.setAttribute("studentName", studentName);
+    			
+    			//Get teacher replies and save to database.
+    			CourseContentsBean newCourseContents = new CourseContentsBean();
+    			newCourseContents.setTeacherReply1((String)request.getParameter("teacher_reply1"));
+    			newCourseContents.setTeacherReply2((String)request.getParameter("teacher_reply2"));
+    			newCourseContents.setTeacherReply3((String)request.getParameter("teacher_reply3"));
+    			newCourseContents.setExaminationTeacherReply((String)request.getParameter("teacher_examination_reply"));
+    			newCourseContents.setCoursecode(coursecode);
+    			courseDAO.saveTeacherAnswers(newCourseContents, studentUsername);
+    			
+    			//Refresh page.
+    			course = courseDAO.getCourse(coursecode);
+    			request.setAttribute("course", course);
+    			
+    			courseContents = courseDAO.getCourseContents(studentUsername, coursecode);
+    			request.setAttribute("selectedCourse", courseContents);
 
     			courses = courseDAO.getStudentCourses(studentUsername, (String)session.getAttribute("username"));
     			request.setAttribute("courses", courses);
     			
-    			
-
     			userList = userDAO.getTeacherStudents((String) session.getAttribute("username"));
     			request.setAttribute("studentList", userList);
     			
@@ -267,6 +291,15 @@ public class TeacherController extends HttpServlet {
     			break;
     		
     		case "to_user_profile":
+    			
+    			int newStudentAnswerCount = courseDAO.getNewStudentAnswersCount((String)session.getAttribute("username"));
+    			Integer wrapper = newStudentAnswerCount;
+    			String answerCount = wrapper.toString();
+    			request.setAttribute("newStudentAnswerCount", answerCount);
+    			
+    			int newStudentMessageCount = messageDAO.getNewMessagesCount((String)session.getAttribute("username"));
+    			request.setAttribute("newStudentMessageCount", newStudentMessageCount);
+    			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp");
     			break;
     			
@@ -281,7 +314,6 @@ public class TeacherController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//System.out.println("do POST runs /teachercontroller");
 		session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -291,6 +323,15 @@ public class TeacherController extends HttpServlet {
 		userBean.getUserData();
 		
 		session.setAttribute("first_name", userBean.getFirstname());
+		
+		int newStudentAnswerCount = courseDAO.getNewStudentAnswersCount(username);
+		Integer wrapper = newStudentAnswerCount;
+		String answerCount = wrapper.toString();
+		request.setAttribute("newStudentAnswerCount", answerCount);
+		
+		int newStudentMessageCount = messageDAO.getNewMessagesCount(username);
+		request.setAttribute("newStudentMessageCount", newStudentMessageCount);
+		
 		
 		
 		dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp"); 	

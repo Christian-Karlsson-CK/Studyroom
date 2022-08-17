@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page is the login page and sends data to the LoginController ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="CSS/login.css"/>

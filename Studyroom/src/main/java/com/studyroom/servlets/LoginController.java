@@ -11,16 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.studyroom.beans.LoginBean;
+import com.studyroom.dao.LoginDAO;
 
-/**
- * Servlet implementation class login
- */
+/**  
+ * 
+ * 
+ * This servlet handles all login requests from login.jsp.
+ * It sends login data to the LoginDAO to do the login validation.
+ * 
+ * 
+ * **/
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	HttpSession session;
-	RequestDispatcher dispatcher;
+	private HttpSession session;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,24 +34,12 @@ public class LoginController extends HttpServlet {
     	super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-    	//RequestDispatcher dispatcher = null;
-    	System.out.println("do get runs");
-    	
-		//dispatcher = request.getRequestDispatcher("WEB-INF/views/login.jsp"); 	
-		//dispatcher.forward(request, response);
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//System.out.println("at do post loginC");
 		RequestDispatcher dispatcher;
 		session = request.getSession();
 		session.setMaxInactiveInterval(600);
@@ -56,20 +49,21 @@ public class LoginController extends HttpServlet {
 		bean.setUsername(request.getParameter("username"));
 		bean.setPassword(request.getParameter("password"));
 		
+		LoginDAO loginDAO = new LoginDAO();
+		
 		
 		//Check if username exists
-		if(bean.validateUsername()) {
+		if(loginDAO.validateUsername(bean)) {
 			//Then check if password is correct
-			if (bean.validatePassword()){
+			if (loginDAO.validatePassword(bean)){
 				
-				String userType = bean.getUserType();
+				String userType = loginDAO.getUserType(bean);
 				
 				
 				//Check usertype (teacher or student) to determine next view for the dispatcher
 				if(userType.equals("teacher")) {
-					//System.out.println("is teacher");
+					
 					session.setAttribute("username", bean.getUsername());
-					//dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp");
 					dispatcher = request.getRequestDispatcher("TeacherController");
 					dispatcher.forward(request, response);
 				}
@@ -86,7 +80,7 @@ public class LoginController extends HttpServlet {
 					dispatcher.forward(request, response);
 				}
 				else {
-					//System.out.println("Could not get valid usertype");
+					System.out.println("Could not get valid usertype");
 				}
 			}
 			
@@ -96,7 +90,6 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("username", bean.getUsername());
 				dispatcher = request.getRequestDispatcher("login.jsp");
 				dispatcher.forward(request, response);
-				//System.out.println("wrong password");
 			}
 		}
 		
@@ -106,8 +99,6 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("username", bean.getUsername());
 			dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
-			
-			//System.out.println("Username does not exist");
 		}
 	}
 }

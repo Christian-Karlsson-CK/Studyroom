@@ -7,6 +7,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page is the first page for the teachers after login. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="CSS/teacher/teacherHome.css"/>
@@ -23,7 +24,11 @@
 		
 		
 			<h1>Welcome <%= session.getAttribute("first_name") %></h1>
-			<p>Here is todays work:	</p>
+			<h3>Here is todays work:	</h3>
+			
+			<h3>You have ${newStudentAnswerCount} new student exercise/examination answers to examine.</h3>
+			<h3>You have ${newStudentMessageCount} new messages.</h3>
+			<h3>Have a nice workday!</h3>
 		</div>
 		
 		

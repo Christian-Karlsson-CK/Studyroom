@@ -7,6 +7,8 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This is the first page for the student after login. ---------------------------------------->
+	
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="CSS/student/studentHome.css"/>
@@ -20,7 +22,12 @@
 		<div class = "contents">
 			
 			<h1>Welcome <%= session.getAttribute("first_name") %></h1>
-			<p>Here is todays work:	</p>
+			
+
+			<h3>You have ${newTeacherReplyCount} exercise/examination that the teacher have examined.</h3>
+			<h3>You have ${newTeacherMessageCount} new messages.</h3>
+			<h3>Have a nice studyday!</h3>
+			
 		</div>
 		
 	</body>

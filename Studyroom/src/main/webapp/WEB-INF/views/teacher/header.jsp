@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<!------------------------------Header for the teachers. ---------------------------------------->
 	<head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="CSS/teacher/header.css"/>

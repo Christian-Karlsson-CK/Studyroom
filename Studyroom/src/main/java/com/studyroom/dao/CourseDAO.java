@@ -170,16 +170,14 @@ public int addInitialCourseContents(CourseContentsBean courseContents) {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if(rs.next()) {
-				//System.out.println("user exist");
 				preparedStatement = con.prepareStatement(CHECK_IF_ALREADY_EXISTS_SQL);
 				preparedStatement.setString(1, courseContents.getCoursecode());
 				preparedStatement.setString(2, courseContents.getStudentUsername());
 				
 				rs = preparedStatement.executeQuery();
 				boolean hasNext = rs.next();
-				System.out.println(hasNext);
+				
 				if(hasNext==false) {
-					//System.out.println("false in if");
 					preparedStatement = con.prepareStatement(INSERT_COURSE_SQL);
 					preparedStatement.setString(1, courseContents.getCoursecode());
 					preparedStatement.setString(2, courseContents.getCourse());
@@ -193,7 +191,7 @@ public int addInitialCourseContents(CourseContentsBean courseContents) {
 					result = preparedStatement.executeUpdate();
 				}
 				else {
-				 System.out.println("true else");
+				 System.out.println("could not add initial course contents.");
 				}
 				
 			}
@@ -238,7 +236,6 @@ public int addInitialCourseContents(CourseContentsBean courseContents) {
 				courseBean.setExercise2(resultSet.getString("exercise2"));
 				courseBean.setExercise3(resultSet.getString("exercise3"));
 				courseBean.setExamination(resultSet.getString("examination"));
-				System.out.println(resultSet.getString("course_code_id"));
 				
 				
 			} 
@@ -354,7 +351,6 @@ public CourseContentsBean getCourseContents(String studentUsername, String cours
 				preparedStatement.setString(3, course.getExercise3());
 				preparedStatement.setString(4, course.getExamination());
 				preparedStatement.setString(5, course.getCourseCodeId());
-				System.out.println(course.getCourseCodeId());
 				
 				result = preparedStatement.executeUpdate();
 	
@@ -408,6 +404,78 @@ public CourseContentsBean getCourseContents(String studentUsername, String cours
 		return courses;
 	
 	}
+	
+	public int saveTeacherAnswers(CourseContentsBean courseContents, String username) {
+		con = DatabaseConnection.getConnection();
+		
+		
+		
+		String UPDATE_COURSE_SQL = "UPDATE course_contents SET teacher_reply1=?, teacher_reply2=?, teacher_reply3=?, examination_teacher_reply=?, new_student_answer=?, new_teacher_reply=? WHERE coursecode=? AND student_username=?";
+		int result = 0;
+		
+		if(con != null) {
+			try {
+				PreparedStatement preparedStatement = con.prepareStatement(UPDATE_COURSE_SQL);
+				preparedStatement.setString(1, courseContents.getTeacherReply1());
+				preparedStatement.setString(2, courseContents.getTeacherReply2());
+				preparedStatement.setString(3, courseContents.getTeacherReply3());
+				preparedStatement.setString(4, courseContents.getExaminationTeacherReply());
+				preparedStatement.setString(5, "false");
+				preparedStatement.setString(6, "true");
+				preparedStatement.setString(7, courseContents.getCoursecode());
+				preparedStatement.setString(8, username);
+				
+				result = preparedStatement.executeUpdate();
+	
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		DatabaseConnection.disconnect(con);
+		
+		
+		return result;
+	}
+	
+	public int getNewStudentAnswersCount(String username) {
+		con = DatabaseConnection.getConnection();
+		
+	
+		
+		String SELECT_COURSE_CONTENTS_SQL = "SELECT new_student_answer FROM course_contents WHERE teacher_username='" + username +"'";
+		int newAnswerCount = 0;
+		
+		if(con != null) {
+			try {
+				PreparedStatement preparedStatement = con.prepareStatement(SELECT_COURSE_CONTENTS_SQL);
+				
+				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				while(resultSet.next()) {
+					
+					if(resultSet.getString("new_student_answer")!= null) {
+						if(resultSet.getString("new_student_answer").equals("true")) {
+							newAnswerCount++;
+						}
+					}
+					
+					
+				}
+
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		DatabaseConnection.disconnect(con);
+
+		return newAnswerCount;
+	}
+	
+	
 	
 	/******************* 										   ******************/
 	/*******************              STUDENT SPECIFIC METHODS     ******************/
@@ -483,8 +551,43 @@ public CourseContentsBean getCourseContents(String studentUsername, String cours
 		
 		return result;
 	}
+
+	public int getNewTeacherReplyCount(String username) {
+		con = DatabaseConnection.getConnection();
+		
 	
-	
+		
+		String SELECT_COURSE_CONTENTS_SQL = "SELECT new_teacher_reply FROM course_contents WHERE student_username='" + username +"'";
+		int newAnswerCount = 0;
+		
+		if(con != null) {
+			try {
+				PreparedStatement preparedStatement = con.prepareStatement(SELECT_COURSE_CONTENTS_SQL);
+				
+				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				while(resultSet.next()) {
+					
+					if(resultSet.getString("new_teacher_reply")!= null) {
+						if(resultSet.getString("new_teacher_reply").equals("true")) {
+							newAnswerCount++;
+						}
+					}
+					
+					
+				}
+
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		DatabaseConnection.disconnect(con);
+
+		return newAnswerCount;
+	}
+
 }
 	
 

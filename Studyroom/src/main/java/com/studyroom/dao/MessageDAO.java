@@ -259,4 +259,37 @@ public List<FriendBean> getTeacherFriendList(String teacher){
 		return result;
 	}
 
+
+	public int getNewMessagesCount(String username) {
+		
+		Connection con = DatabaseConnection.getConnection();
+		Statement stmt;
+		ResultSet rs;
+		int newMessageCounter = 0;
+		
+		if(con != null) {
+			try {
+				stmt = con.createStatement();
+				rs = stmt.executeQuery("SELECT is_read FROM message WHERE recipient_id='" + username +"'");
+				
+				while(rs.next()) {
+					if(rs.getString("is_read")!= null) {
+						if(rs.getString("is_read").equals("false")) {
+							newMessageCounter++;
+						}
+					}
+					
+				}
+				
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		DatabaseConnection.disconnect(con);
+		
+		return newMessageCounter;
+	}
+
 }

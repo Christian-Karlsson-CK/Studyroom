@@ -6,7 +6,11 @@
 }%>
 
 <!DOCTYPE html>
+
+
 <html>
+	<!------------------------------This is the first page for the admin after login. ---------------------------------------->
+
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="CSS/admin/adminHome.css"/>

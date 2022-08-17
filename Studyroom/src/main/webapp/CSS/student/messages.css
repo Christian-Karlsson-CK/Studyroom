@@ -94,6 +94,11 @@ body{
 	color: red;
 }
 
+.message_icon{
+	max-height: 20px;
+	vertical-align: bottom 
+}
+
 .message_area{
 	width: 50%;
 	background: #D5DDE5;

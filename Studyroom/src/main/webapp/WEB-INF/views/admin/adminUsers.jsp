@@ -9,6 +9,7 @@
 
 <!DOCTYPE html>
 <html>
+	<!------------------------------This page lets Admin add, edit or remove users. ---------------------------------------->
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">

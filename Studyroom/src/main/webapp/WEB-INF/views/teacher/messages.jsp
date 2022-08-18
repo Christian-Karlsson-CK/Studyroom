@@ -32,9 +32,10 @@
 			
 			<div class="users_list">
 				<h3>Your students:</h3>
-				<div class="courses_sections">
-					<h4>Math B students</h4>
-				</div>
+				
+				<!-------------------------------------------------------------------------------------------------------------------------->
+				<!---------------------------------Displays all enrolled students for logged in teacher.------------------------------------>
+				<!------------------------------‐--‐---------------------------------------------------------------------------------------->
 				
 				<c:forEach items="${friendList}" var="friendLists">
 					
@@ -67,24 +68,12 @@
 					</a>
 					
 				</c:forEach>
-				
-				
-				<div class="courses_sections">
-					<h4>Religion A students</h4>
-				</div>
-				
-				<div class= "user">
-					<div class= "user_row">
-					<img class="img" alt="icon" src="RESOURCES/IMAGES/user_icon.png">
-					<span class="name">Steven Smartson</span>
-					<span class="date">Sent 2022-04-10 </span>
-					</div>
-					<i class="message">Hey I toooolooont understand a thing plsss help me!</i>
-				</div>
-				
-				
-								
+			
 			</div>
+			
+			<!-------------------------------------------------------------------------------------------------------------------------->
+			<!-------------------------------------------Chatarea--‐-------------------------------------------------------------------->
+			<!------------------------------‐--‐---------------------------------------------------------------------------------------->
 			
 			<div class="message_area">
 				<div class="user_info">

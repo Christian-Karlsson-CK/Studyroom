@@ -1,14 +1,14 @@
 package com.studyroom.beans;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.studyroom.databaseconnection.DatabaseConnection;
+/**  
+ * 
+ * 
+ * This bean can hold data about a student or teacher friend for the messages section.
+ * 
+ * 
+ * **/
 
 public class FriendBean implements Serializable{
 	private static final long serialVersionUID = 1L;

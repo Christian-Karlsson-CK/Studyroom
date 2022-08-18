@@ -2,6 +2,15 @@ package com.studyroom.beans;
 
 import java.io.Serializable;
 
+/**  
+ * 
+ * 
+ * This bean can hold data about a students assigned course.
+ * 
+ * 
+ * **/
+
+
 public class AssignedStudentBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

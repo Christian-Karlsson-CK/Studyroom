@@ -2,6 +2,14 @@ package com.studyroom.beans;
 
 import java.io.Serializable;
 
+/**  
+ * 
+ * 
+ * This bean can hold data about a message.
+ * 
+ * 
+ * **/
+
 public class MessageBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

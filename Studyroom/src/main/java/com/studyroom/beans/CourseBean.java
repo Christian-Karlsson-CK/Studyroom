@@ -1,5 +1,13 @@
 package com.studyroom.beans;
 
+/**  
+ * 
+ * 
+ * This bean can hold data about a course.
+ * 
+ * 
+ * **/
+
 public class CourseBean {
 	
 	private String courseCodeId;

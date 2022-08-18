@@ -33,7 +33,12 @@
 				<div class="table_title">
 					<h1>Assign Students</h1>
 				</div>
-
+				
+			<!-------------------------------------------------------------------------------------------------------------------------->
+			<!-----This area bellow displays all courses in a seperate table with all enrolled student after each respective course.---->
+			<!------------------------------‐--‐---------------------------------------------------------------------------------------->
+				
+				
 				<c:forEach items="${courseList}" var="courseLists" varStatus="status">
 					
 					<form action="<%= request.getContextPath() %>/AdminController" id="add_form${status.index}" method="get">

@@ -1,5 +1,13 @@
 package com.studyroom.beans;
 
+/**  
+ * 
+ * 
+ * This bean can hold data on student answers and teacher reply on exercise/examination on various courses.
+ * 
+ * 
+ * **/
+
 public class CourseContentsBean {
 	private String coursecode;
 	private String course;

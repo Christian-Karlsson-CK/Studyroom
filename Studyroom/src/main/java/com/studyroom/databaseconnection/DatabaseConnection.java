@@ -4,6 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**  
+ * 
+ * 
+ * This class handles database connection.
+ * 
+ * 
+ * **/
+
 public class DatabaseConnection {
 	
 	
@@ -25,9 +33,6 @@ public class DatabaseConnection {
 		//Try to get a connection with localserver
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studyroom", "root", "root");
-			if(con == null) {
-				System.out.println("still null at getconnection method");
-			}
 			
 		}
 		catch(SQLException ex) {

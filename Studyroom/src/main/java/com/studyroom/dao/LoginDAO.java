@@ -77,6 +77,8 @@ public class LoginDAO {
 		return isPasswordCorrect;
 	}
 	
+	
+	//This method checks if a user is a teacher or student (used when logging in).
 	public String getUserType(LoginBean loginBean) {
 		
 		Connection con = DatabaseConnection.getConnection();

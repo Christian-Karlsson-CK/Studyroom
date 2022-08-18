@@ -16,6 +16,13 @@ public class UserDAO {
 	Connection con = DatabaseConnection.getConnection();
 	Statement stmt;
 	
+	/**  
+	 * ******************************************************
+	 * 				Admin specific method
+	 * 				Adds a new user to database.
+	 * ******************************************************
+	 * **/
+	
 	public int addUser(UserBean user) {
 		
 		con = DatabaseConnection.getConnection();
@@ -36,10 +43,6 @@ public class UserDAO {
 				
 				result = preparedStatement.executeUpdate();
 				
-				
-				//stmt.executeQuery("INSERT INTO `studyroom`.`message` (`creator_id`, `create_date`, `message`, `recipient_id`, `is_read`) VALUES ('guakr', '2002-09', 'my msessage is this', 'toJEFRE123', 'false'");
-				
-				
 			} 
 			catch (SQLException e) {
 				e.printStackTrace();
@@ -51,7 +54,14 @@ public class UserDAO {
 		
 		return result;
 	}
-
+	
+	/**  
+	 * ******************************************************
+	 * 				AdminController specific method
+	 * 				Retrieves all users from database.
+	 * ******************************************************
+	 * **/
+	
 	public List<UserBean> getUsers() {
 	
 		con = DatabaseConnection.getConnection();
@@ -89,6 +99,13 @@ public class UserDAO {
 		return users;
 	}
 	
+	/**  
+	 * ******************************************************
+	 * 				AdminController specific method
+	 * 				Deletes a user from database.
+	 * ******************************************************
+	 * **/
+	
 	public int deleteUser(String username) {
 		
 		con = DatabaseConnection.getConnection();
@@ -117,6 +134,13 @@ public class UserDAO {
 		
 		return result;
 	}
+	
+	/**  
+	 * ******************************************************
+	 * 				AdminController specific method
+	 * 				Edits a existing user to database.
+	 * ******************************************************
+	 * **/
 	
 	public int editUser(UserBean user, String oldUsername) {
 		
@@ -150,6 +174,13 @@ public class UserDAO {
 		
 		return result;
 	}
+	
+	/**  
+	 * ******************************************************
+	 * 		AdminController specific method
+	 * 		Retrieves  all assigned students from database.
+	 * ******************************************************
+	 * **/
 	
 	public List<AssignedStudentBean> getAssignedStudents() {
 		
@@ -188,6 +219,14 @@ public class UserDAO {
 		
 		return assignedStudents;
 	}
+	
+	/**  
+	 * ******************************************************
+	 * 		AdminController specific method
+	 * 		Adds student to a specific course in database.
+	 * ******************************************************
+	 * **/
+	
 	public int addStudent(AssignedStudentBean student) {
 		
 		con = DatabaseConnection.getConnection();
@@ -198,25 +237,20 @@ public class UserDAO {
 		
 		int result = 0;
 		
-		
-		
-		
 		if(con != null) {
 			try {
 				//Checks that assigned student does exist in 'user' table before adding to 'assigned_student' table.
 				PreparedStatement preparedStatement = con.prepareStatement(CHECK_IF_USER_EXISTS_SQL);
 				preparedStatement.setString(1, student.getUsername());
 				ResultSet rs = preparedStatement.executeQuery();
-				//Check if
+				
 				if(rs.next()) {
-					//System.out.println("user exist");
+
 					preparedStatement = con.prepareStatement(CHECK_IF_ALREADY_EXISTS_SQL);
 					preparedStatement.setString(1, student.getCoursecode());
 					preparedStatement.setString(2, student.getUsername());
 					
 					rs = preparedStatement.executeQuery();
-					//boolean hasNext = rs.next();
-					//System.out.println(hasNext);
 					
 					if(rs.next()==false) {
 						preparedStatement = con.prepareStatement(INSERT_USER_SQL);
@@ -230,13 +264,6 @@ public class UserDAO {
 					}
 				}
 				
-				
-				
-				
-				
-				//stmt.executeQuery("INSERT INTO `studyroom`.`message` (`creator_id`, `create_date`, `message`, `recipient_id`, `is_read`) VALUES ('guakr', '2002-09', 'my msessage is this', 'toJEFRE123', 'false'");
-				
-				
 			} 
 			catch (SQLException e) {
 				e.printStackTrace();
@@ -248,6 +275,14 @@ public class UserDAO {
 		
 		return result;
 	}
+	
+	/**  
+	 * ******************************************************
+	 * 		AdminController specific method
+	 * 		Deletes a student from assigned_student table in database.
+	 * ******************************************************
+	 * **/
+	
 	public int deleteStudent(String username, String coursecode) {
 		
 		con = DatabaseConnection.getConnection();
@@ -277,29 +312,32 @@ public class UserDAO {
 		return result;
 	}
 	
-	public List<UserBean> getTeacherStudents(String teacherId) {
+	/**  
+	 * ******************************************************
+	 * 		StudentController and TeacherController method
+	 * 		Retrieves a specific users data from database.
+	 * ******************************************************
+	 * **/
+	
+	public UserBean getUserData(String username) {
+		Connection con = DatabaseConnection.getConnection();
+		Statement stmt;
+		ResultSet rs;
 		
-		con = DatabaseConnection.getConnection();
-		
-		List<UserBean> users = new ArrayList<UserBean>();
-		
-		String SELECT_USER_SQL = "SELECT distinct user.username, user.first_name, user.last_name FROM user JOIN assigned_student ON assigned_student.teacher_id = '"+ teacherId + "' AND assigned_student.username = user.username";
-		//select b.* from b join a on b.aID=a.aID
-		
+		UserBean userBean = new UserBean();
+		userBean.setUsername(username);
 		
 		if(con != null) {
 			try {
-				PreparedStatement preparedStatement = con.prepareStatement(SELECT_USER_SQL);
+				stmt = con.createStatement();
+				rs = stmt.executeQuery("SELECT personal_id, first_name, last_name, user_type FROM user WHERE username='" + username + "'");
+				rs.next();
 				
-				ResultSet resultSet = preparedStatement.executeQuery();
+				userBean.setPersonalId(rs.getString("personal_id"));
+				userBean.setFirstname(rs.getString("first_name"));
+				userBean.setLastname(rs.getString("last_name"));
+				userBean.setUsertype(rs.getString("user_type"));
 				
-				while(resultSet.next()) {
-					UserBean userBean = new UserBean();
-					userBean.setFirstname(resultSet.getString("first_name"));
-					userBean.setLastname(resultSet.getString("last_name"));
-					userBean.setUsername(resultSet.getString("username"));
-					users.add(userBean);
-				}
 			} 
 			catch (SQLException e) {
 				e.printStackTrace();
@@ -308,23 +346,30 @@ public class UserDAO {
 		
 		DatabaseConnection.disconnect(con);
 		
-		
-		return users;
+		return userBean;
 	}
 	
-public List<UserBean> getStudentTeachers(String studentId) {
+	
+	
+	/**  
+	 * ******************************************************
+	 * 		TeacherController specific method
+	 * 		Retrieves all students that are enrolled to teachers courses from database.
+	 * ******************************************************
+	 * **/
+	
+	public List<UserBean> getTeacherStudents(String teacherId) {
 		
 		con = DatabaseConnection.getConnection();
 		
 		List<UserBean> users = new ArrayList<UserBean>();
 		
-		String SELECT_TEACHER_SQL = "SELECT distinct user.username, user.first_name, user.last_name FROM user JOIN assigned_student ON assigned_student.username = '"+ studentId + "' AND assigned_student.teacher_id = user.username";
-		//select b.* from b join a on b.aID=a.aID
+		String SELECT_USER_SQL = "SELECT distinct user.username, user.first_name, user.last_name FROM user JOIN assigned_student ON assigned_student.teacher_id = '"+ teacherId + "' AND assigned_student.username = user.username";
 		
 		
 		if(con != null) {
 			try {
-				PreparedStatement preparedStatement = con.prepareStatement(SELECT_TEACHER_SQL);
+				PreparedStatement preparedStatement = con.prepareStatement(SELECT_USER_SQL);
 				
 				ResultSet resultSet = preparedStatement.executeQuery();
 				

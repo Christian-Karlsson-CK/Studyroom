@@ -77,5 +77,15 @@
 		
 		</div>
 		
+		<div class="test_login">
+			<p>For testing purposes here are a few login to try: </p>
+			<p>Admin: username: admin   	 password: admin</p>
+			<p>Teacher: username: gukar123   password: 123</p>
+			<p>Teacher: username: ersve123   password: 123</p>
+			<p>Student: username: amasp123   password: 123</p>
+			<p>Student: username: jejas123   password: 123</p>
+			<p>Student: username: klfre123   password: 123</p>
+		</div>
+		
 	</body>
 </html>

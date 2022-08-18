@@ -37,11 +37,9 @@ public class StudentController extends HttpServlet {
 	private HttpSession session;
 	private UserBean userBean;
 	private RequestDispatcher dispatcher;
-	private FriendBean friendBean;
 	private String friend;
 	private CourseDAO courseDAO = new CourseDAO();
-	private CourseBean course;
-	private UserDAO userDAO;
+	private UserDAO userDAO = new UserDAO();
 	private MessageDAO messageDAO = new MessageDAO();
 	
        
@@ -213,11 +211,13 @@ public class StudentController extends HttpServlet {
     		//If the users name has been pressed in header.
     		case "to_user_profile":
     			
+    			//Count exercises/examination that teacher has done a reply to.
     			int newTeacherReplyCount = courseDAO.getNewTeacherReplyCount(username);
     			Integer wrapper = newTeacherReplyCount;
     			String answerCount = wrapper.toString();
     			request.setAttribute("newTeacherReplyCount", answerCount);
     			
+    			//Count unread messages to the logged in user.
     			int newTeacherMessageCount = messageDAO.getNewMessagesCount(username);
     			request.setAttribute("newStudentMessageCount", newTeacherMessageCount);
     			
@@ -243,18 +243,19 @@ public class StudentController extends HttpServlet {
 		String username = (String) session.getAttribute("username");
 		
 		//Get logged in user data.
-		userBean = new UserBean();
-		userBean.setUsername(username);
-		userBean.getUserData();
+		userBean = userDAO.getUserData(username);
 		
 		//This is used to set the name in the header.
 		session.setAttribute("first_name", userBean.getFirstname());
 		
+		
+		//Count exercises/examination that teacher has done a reply to.
 		int newTeacherReplyCount = courseDAO.getNewTeacherReplyCount(username);
 		Integer wrapper = newTeacherReplyCount;
 		String answerCount = wrapper.toString();
 		request.setAttribute("newTeacherReplyCount", answerCount);
 		
+		//Count unread messages to the logged in user.
 		int newTeacherMessageCount = messageDAO.getNewMessagesCount(username);
 		request.setAttribute("newTeacherMessageCount", newTeacherMessageCount);
 		

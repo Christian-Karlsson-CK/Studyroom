@@ -214,23 +214,19 @@ public class TeacherController extends HttpServlet {
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/examineStudents.jsp");
     			break;
     			
-    			
+    		// if 'messages' has been pressed in the header.
     		case "to_messages":
     			
-    			//before dispatching to message page get friendlist of user
+    			//Get friendlist for logged in teacher.
     			List<FriendBean> friendList = messageDAO.getTeacherFriendList((String)session.getAttribute("username"));
     			request.setAttribute("friendList", friendList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/messages.jsp");
     			break;
     			
+    		//if a friend in the friendlist has been pressed on messages.jsp.
     		case "messages_click_friend":
-    			//before dispatching to message page get friendlist and fill messagearea
     			
-    			messageDAO.setMessagesRead((String)session.getAttribute("username"), (String)request.getParameter("friend"));
-    			
-    			friendList = messageDAO.getTeacherFriendList((String)session.getAttribute("username"));
-    			request.setAttribute("friendList", friendList);
     			
     			String user =(String)session.getAttribute("username");
     			friend = request.getParameter("friend");
@@ -243,19 +239,25 @@ public class TeacherController extends HttpServlet {
     			session.setAttribute("friendFullname", friendFullname);
     			session.setAttribute("message_date", message_date);
     			
+    			//set new messages as read.
+    			messageDAO.setMessagesRead((String)session.getAttribute("username"), (String)request.getParameter("friend"));
     			
-    			
+    			//get all messages between logged in user and clicked friend from friendlist.
     			List<MessageBean> messageList = messageDAO.getMessageList(user, friend);
     			request.setAttribute("messageList", messageList);
     			
+    			//refresh page
+    			friendList = messageDAO.getTeacherFriendList((String)session.getAttribute("username"));
+    			request.setAttribute("friendList", friendList);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/messages.jsp");
     			break;
     			
+    		//if 'send' button has been pressed at messages.jsp.
     		case "send_message":
-    			session = request.getSession();
-    			MessageBean inputMessage = new MessageBean();
     			
+    			//get new message and save it to database.
+    			MessageBean inputMessage = new MessageBean();
     			inputMessage.setMessage(request.getParameter("input"));
     			inputMessage.setCreatorId((String) session.getAttribute("username"));
     			inputMessage.setRecipientId((String) session.getAttribute("friend"));
@@ -263,46 +265,47 @@ public class TeacherController extends HttpServlet {
     			
     			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     			LocalDateTime now = LocalDateTime.now();
-    			System.out.println(dtf.format(now)); 
-    			
     			String dateTime = dtf.format(now);
     			inputMessage.setCreateDate(dateTime);
-    			
     			messageDAO.addMessage(inputMessage);
     			
+    			//refresh page.
     			friendList = messageDAO.getTeacherFriendList((String)session.getAttribute("username"));
     			request.setAttribute("friendList", friendList);
     			
     			user =(String)session.getAttribute("username");
     			
-    			
     			messageList = messageDAO.getMessageList(user, friend);
     			request.setAttribute("messageList", messageList);
-    			
-    			
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/messages.jsp");
     			break;
     			
+    		// if 'logout' has been pressed in the header.
     		case "do_logout":
+    			//invalidate current session and redirect to login page.
     			session = request.getSession();
     			session.invalidate();
     			dispatcher = request.getRequestDispatcher("login.jsp");
     			break;
-    		
+    			
+    		//if logged in users name has been pressed in the header.
     		case "to_user_profile":
     			
+    			//count number of new exercise/examination answers from students.
     			int newStudentAnswerCount = courseDAO.getNewStudentAnswersCount((String)session.getAttribute("username"));
     			Integer wrapper = newStudentAnswerCount;
     			String answerCount = wrapper.toString();
     			request.setAttribute("newStudentAnswerCount", answerCount);
     			
+    			//count number of new messages.
     			int newStudentMessageCount = messageDAO.getNewMessagesCount((String)session.getAttribute("username"));
     			request.setAttribute("newStudentMessageCount", newStudentMessageCount);
     			
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp");
     			break;
-    			
+    		
+    		//the default is only here in case of a bug.
     		default:
     			dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp"); 
     			break;
@@ -318,17 +321,17 @@ public class TeacherController extends HttpServlet {
 		String username = (String) session.getAttribute("username");
 		
 		
-		userBean = new UserBean();
-		userBean.setUsername(username);
-		userBean.getUserData();
+		userBean = userDAO.getUserData(username);
 		
 		session.setAttribute("first_name", userBean.getFirstname());
 		
+		//count number of exercise/examination answers from students.
 		int newStudentAnswerCount = courseDAO.getNewStudentAnswersCount(username);
 		Integer wrapper = newStudentAnswerCount;
 		String answerCount = wrapper.toString();
 		request.setAttribute("newStudentAnswerCount", answerCount);
 		
+		//count number of new messages.
 		int newStudentMessageCount = messageDAO.getNewMessagesCount(username);
 		request.setAttribute("newStudentMessageCount", newStudentMessageCount);
 		
@@ -337,18 +340,6 @@ public class TeacherController extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("WEB-INF/views/teacher/teacherHome.jsp"); 	
 		dispatcher.forward(request, response);
 		
-		
-		
-		
 	}
 
 }
-
-
-
-
-
-
-
-
-
